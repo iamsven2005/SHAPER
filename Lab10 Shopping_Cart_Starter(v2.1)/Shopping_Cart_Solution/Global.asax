@@ -12,7 +12,7 @@
     }
     static void RegisterRoutes(RouteCollection routes)
     {
-        routes.MapPageRoute("Home", "SHAPER", "~/index.aspx");
+        routes.MapPageRoute("Home", "", "~/index.aspx");
         routes.MapPageRoute("Products", "Shop", "~/BestSeller.aspx");
         routes.MapPageRoute("Cart", "Cart", "~/ViewCart.aspx");
 
@@ -20,14 +20,15 @@
     void Application_End(object sender, EventArgs e)
     {
         //  Code that runs on application shutdown
-
+        HttpContext.Current.Response.Redirect("~/index.aspx");
     }
 
     void Application_Error(object sender, EventArgs e)
     {
-        // Code that runs when an unhandled error occurs
+        // Get the last error that occurred
 
     }
+
 
     void Session_Start(object sender, EventArgs e)
     {
