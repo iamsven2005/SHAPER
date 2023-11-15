@@ -1,0 +1,175 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminMaster.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>CS Bookstore</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="assets/css/StyleSheet.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/MasterPage.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <div class="maincontainer">
+                <div class="topnav">
+                    <div class="topnavdd">
+                        <a href="#">
+                            <asp:Label ID="lblAftLogin" runat="server" Text="ADMIN" Font-Bold="True"></asp:Label></a>
+                        <div class="topnavdd-content">
+                            <a href="index.aspx" style="font-family: 'Oswald', sans-serif; color: #EC7063">Sign Out</a>
+                        </div>
+                    </div>
+                    <a href="Admin-Users.aspx">Manage Users</a>
+                    <a href="Admin-Orders.aspx">Manage Orders</a>
+                </div>
+
+                <div class="midnav">
+                    <a style="color: #48C9B0; float: left; margin-left: 10px; font-size: 32px; font-family: 'Anton', sans-serif;"
+                        href="Admin-index.aspx">SUNNY 2.0
+                    </a>
+                </div>
+
+                <div class="btmnav">
+                    <div class="dropdownbooks">
+                        <button>Books</button>
+                        <div class="dropdownbooks-content">
+                            <a style="font-family: 'Oswald', sans-serif;">BESTSELLERS</a>
+                            <a style="font-family: 'Oswald', sans-serif;">CATEGORIES</a>
+                            <a style="font-family: 'Oswald', sans-serif;">FEATURED</a>
+                            <a style="font-family: 'Oswald', sans-serif;">DISCOVER</a>
+                            <%--This link below will be the page we will code with all the products.--%>
+                            <a style="font-size: 10px;" href="Admin-BestSeller.aspx">SB's Bestsellers</a>
+                            <a style="font-size: 10px;" href="#">Biography</a>
+                            <a style="font-size: 10px;" href="#">SB Classics</a>
+                            <a style="font-size: 10px;" href="#">Book Graph</a>
+                            <a style="font-size: 10px;" href="#">SB's Top 100</a>
+                            <a style="font-size: 10px;" href="#">Business</a>
+                            <a style="font-size: 10px;" href="#">SB Exclusives</a>
+                            <a style="font-size: 10px;" href="#">SB Readouts</a>
+                            <a style="font-size: 10px;" href="#">ST Times Bestsellers</a>
+                            <a style="font-size: 10px;" href="#">Cookbooks</a>
+                            <a style="font-size: 10px;" href="#">Signed Books</a>
+                            <a style="font-size: 10px;" href="#">Browsery</a>
+                            <a style="font-family: 'Oswald', sans-serif;">BLOGS</a>
+                            <a style="font-size: 10px;" href="#">Current Affairs & Politics</a>
+                            <a style="font-size: 10px;" href="#">Summer Reading</a>
+                            <a style="font-family: 'Oswald', sans-serif;">SPECIAL VALUES</a>
+                            <a style="font-size: 10px;" href="#">SB Podcast</a>
+                            <a style="font-size: 10px;" href="#">Diet, Health & Fitness</a>
+                            <a style="font-size: 10px;" href="#">SB Outlet</a>
+                            <a style="font-size: 10px;" href="#">Buy 2 30% Off</a>
+                            <a style="font-size: 10px;" href="#">SB Biggest Books</a>
+                            <a style="font-size: 10px;" href="#">Fiction</a>
+                            <a style="font-size: 10px;" href="#">Bundled Sets</a>
+                            <a style="font-size: 10px;" href="#">Coupon & Deals</a>
+                            <a style="font-size: 10px;" href="#">SB Review</a>
+                            <a style="font-size: 10px;" href="#">Graphic Novels & Comics</a>
+                            <a style="font-size: 10px;" href="#">Trend Shop</a>
+                            <a style="font-size: 10px;" href="#">20% Off New Releases</a>
+                            <a style="font-size: 10px;" href="#">SB Press Blog</a>
+                            <a style="font-size: 10px;" href="#">History</a>
+                            <a style="font-size: 10px;" href="#"></a>
+                            <a style="font-size: 10px; color: red" href="#">Sale</a>
+                            <a style="font-size: 10px;" href="#">SB Reads</a>
+                            <a style="font-size: 10px;" href="#">Mystery & Crime</a>
+                            <a style="font-size: 10px;" href="#"></a>
+                            <a style="font-size: 10px;" href="#"></a>
+                            <a style="font-size: 10px;" href="#">SB Mystery Blog</a>
+                            <a style="font-size: 10px;" href="#">Religion</a>
+                            <a style="font-size: 10px;" href="#"></a>
+                            <a style="font-size: 10px;" href="#"></a>
+                            <a style="font-size: 10px;" href="#"></a>
+                            <a style="font-size: 10px;" href="#">Sci-Fi & Fantasy</a>
+                            <a style="font-size: 10px;" href="#"></a>
+                            <a style="font-size: 10px;" href="#"></a>
+                            <a style="font-size: 10px;" href="#"></a>
+                            <a style="font-size: 10px; color: gray" href="#">See More ></a>
+                            <a style="font-size: 10px;" href="#"></a>
+                            <a style="font-size: 10px;" href="#"></a>
+                        </div>
+                    </div>
+                    <a href="#">Magazines</a>
+                    <a href="#">Textbooks</a>
+                    <a href="#">Newsstand</a>
+                    <a href="#">Teens</a>
+                    <a href="#">Kids</a>
+                    <a href="#">Gifts</a>
+                    <a href="#">Games & Collectibles</a>
+                    <a href="#">Movies & TV</a>
+                    <a href="#">Music</a>
+                    <a href="#">Office</a>
+                    <a style="color: red" href="#">Sale</a>
+                </div>
+
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+
+            <div class="maincontainer">
+                <div class="footer">
+                    <div class="leftfooter">
+                        <div class="bookmarks">
+                            <p>SB Services</p>
+                            <p>Shipping</p>
+                            <p>About Us</p>
+                            <p>Quick Help</p>
+                        </div>
+                        <div class="directions">
+                            <ul>
+                                <li><a href="#">Advertise</a></li>
+                                <li><a href="#">Affiliate Program</a></li>
+                                <li><a href="#">Publisher & Author Guidelines</a></li>
+                                <li><a href="#">Bulk Order Discounts</a></li>
+                                <li><a href="#">SB Membership</a></li>
+                                <li><a href="#">SB Mastercard</a></li>
+                                <li><a href="#">SB Kids' Club</a></li>
+                                <li><a href="#">SB Educators</a></li>
+                                <li><a href="#">SB Bookfairs</a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#">Shipping FAQs</a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#">About SB</a></li>
+                                <li><a href="#">Investor Relations</a></li>
+                                <li><a href="#">SB 2.0 Inc.</a></li>
+                                <li><a href="#">Careers at SB</a></li>
+                                <li><a href="#">SB Kitchen</a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#">Customer Service</a></li>
+                                <li><a href="#">Order Status</a></li>
+                                <li><a href="#">Easy Returns</a></li>
+                                <li><a href="#">Product Recalls</a></li>
+                                <li><a href="#">Correction & Updates</a></li>
+                                <li><a href="#">eBook Settlement</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="rightfooter">
+                        <asp:Button ID="btnFindLocation" Style="width: 100%; height: 40px; border: 0.5px solid; background-color: transparent; font-size: 16px; font-family: 'Poppins', sans-serif;" runat="server" Text="Locate Nearest Store" />
+                        <br />
+                        <br />
+                        <asp:Button ID="btnNewsUpdate" Style="width: 100%; height: 40px; border: 0.5px solid; background-color: transparent; font-size: 12px; font-family: 'Poppins', sans-serif;" runat="server" Text="Sign up for news updates" />
+
+                        <div class="socialmedias">
+                            <asp:ImageButton ID="ImageButton1" Height="30px" Width="30px" ImageUrl="images/fb.png" runat="server" />
+                            <asp:ImageButton ID="ImageButton2" Height="30px" Width="30px" ImageUrl="images/twitter.png" runat="server" />
+                            <asp:ImageButton ID="ImageButton3" Height="30px" Width="30px" ImageUrl="images/ig.png" runat="server" />
+                            <asp:ImageButton ID="ImageButton4" Height="30px" Width="30px" ImageUrl="images/google.png" runat="server" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        </div>
+    </form>
+</body>
+</html>
