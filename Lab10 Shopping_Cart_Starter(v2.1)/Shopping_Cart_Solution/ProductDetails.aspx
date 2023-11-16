@@ -3,7 +3,6 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <link rel="stylesheet" type="text/css" href="assets/css/ProductDetails.css" />
     <style>
             .Star {
                 background-image: url(images/Star.gif);

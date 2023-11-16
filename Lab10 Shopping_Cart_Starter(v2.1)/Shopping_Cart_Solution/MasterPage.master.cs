@@ -13,7 +13,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)
@@ -60,7 +59,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
             com.ExecuteNonQuery();
 
-            Response.Write("<script>alert('Successfully created account! Welcome! ');</script>");
+            Response.Write("<script>alert(' <div class=\"alert alert-success\" id=\"alert\">Successfully created account! Welcome!\r\n    < button onclick = \"closeAlert()\" class= \"float-right text-white\" >×</ button ></ div >');</script>");
         }
 
         conn.Close();
@@ -69,7 +68,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         txt_LastName.Text = "";
         txt_RegEmail.Text = "";
     }
-
+   
     protected void btnSignIn_Click(object sender, EventArgs e)
     {
         Session["Email"] = txt_Email.Text;

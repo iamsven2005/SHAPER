@@ -2,7 +2,6 @@
 <%@ Import Namespace="System.Web.Routing" %>
 <%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="System.Web" %>
-
 <script runat="server">
 
     void Application_Start(object sender, EventArgs e)
@@ -26,8 +25,20 @@
     void Application_Error(object sender, EventArgs e)
     {
         // Get the last error that occurred
+        Exception ex = Server.GetLastError();
+        Server.ClearError();
+        if (ex is HttpException && ((HttpException)ex).GetHttpCode() == 404.0)
+        {
+            Response.Redirect("/");
 
+        }
+        else
+        {
+            // Handle other errors or log them as needed
+            Response.Redirect("/");
+        }
     }
+
 
 
     void Session_Start(object sender, EventArgs e)
