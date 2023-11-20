@@ -5,7 +5,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <asp:TextBox ID="txtSearch" Style="display:none;" runat="server"></asp:TextBox>
     <asp:Label ID="lblnoresult" runat="server" Text="No results found." Font-Size="Larger" Visible="False"></asp:Label>
-
+    <asp:TextBox ID="TextBox1" PlaceHolder="Search" class="input w-full" runat="server"></asp:TextBox>
+    <asp:Button ID="btnSearch" runat="server" class="btn" Text="🔍" OnClick="btnSearch_Click" />
+                    
         <asp:Repeater ID="Repeater1" runat="server">
         
         <ItemTemplate>

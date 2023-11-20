@@ -11,8 +11,14 @@ using System.Configuration;
 using System.IO;
 using System.Text;
 
-public partial class Search : System.Web.UI.Page
+public partial class Search2 : BasePage
 {
+
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        Session["Search"] = txtSearch.Text;
+        Response.Redirect("Search.aspx");
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         //retrieve the session variable
@@ -79,4 +85,5 @@ public partial class Search : System.Web.UI.Page
             }
         }
     }
+
 }
