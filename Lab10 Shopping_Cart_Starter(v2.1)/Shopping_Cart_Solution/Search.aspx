@@ -2,12 +2,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">   
     <asp:TextBox ID="txtSearch" Style="display:none;" runat="server"></asp:TextBox>
     <asp:Label ID="lblnoresult" runat="server" Text="No results found." Font-Size="Larger" Visible="False"></asp:Label>
-    <asp:TextBox ID="TextBox1" PlaceHolder="Search" class="input w-full" runat="server"></asp:TextBox>
-    <asp:Button ID="btnSearch" runat="server" class="btn" Text="🔍" OnClick="btnSearch_Click" />
-                    
+
         <asp:Repeater ID="Repeater1" runat="server">
         
         <ItemTemplate>
@@ -15,7 +13,7 @@
                 <figure>
                     <div class="carousel carousel-center max-w p-4 space-x-4 bg-neutral rounded-box">
                         <div id="item1" class="carousel-item">
-                            <asp:ImageButton PostBackUrl='<%# ResolveClientUrl("ProductDetails.aspx?ProdID=" + Eval("ID") ) %>' class="bookimage" ID="imgBooks" ImageUrl='<%#Eval("Image") %>' runat="server" />
+                            <img href="ProductDetails.aspx?ProdID=<%# Eval("ID") %>"  src='<%#Eval("Image") %>' />
                         </div>
                     </div>
                 </figure>
@@ -38,7 +36,7 @@
                             <path d="m630 600h-450l225-390zm-430-12h408.64l-204.32-354z" fill="#f00" />
                         </svg>
                     </button>
-                    <button class="btn join-item">
+                    <a class="btn join-item" href="ProductDetails.aspx?ProdID=<%# Eval("ID") %>">
                         <svg class="h-5 w-5" version="1.0" fill="#fff" viewBox="0 0 810 810"
                             xmlns="http://www.w3.org/2000/svg" zoomAndPan="magnify">
                             <path
@@ -53,7 +51,8 @@
                             <path d="m632.9 557.9h-25.012v12.102h37.113v-37.113h-12.102z" />
                         </svg>
                         Comment
-                    </button>
+                    </a>
+
                     <button class="btn join-item" >
                         <svg class="h-5 w-5" version="1.0" fill="#fff" viewBox="0 0 810 810"
                             xmlns="http://www.w3.org/2000/svg" zoomAndPan="magnify">
@@ -73,18 +72,16 @@
                     </button>
                 </div>
                 <div class="card-body">
-                    <asp:Label class="card-title" ID="lblTitle" runat="server" Text='<%#Eval("Title")%>'></asp:Label><br />
-                    <asp:Label class="bookauthor" ID="lblAuthor" runat="server" Text='<%#Eval("Author") %>'></asp:Label>
+                    <p class="card-title" ><%#Eval("Title")%></p>
+                    <p class="bookauthor" ><%#Eval("Author") %></p>
 <%--                    <p><asp:Label ID="Label1" runat="server" Text='<%#Eval("Description") %>'></asp:Label></p>--%>
                     <div class="card-actions justify-end">
                     </div>
                 </div>
             </div>
-            </div>
         </ItemTemplate>
         
     </asp:Repeater>
-
     
 
 </asp:Content>
