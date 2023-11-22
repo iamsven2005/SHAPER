@@ -3,12 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <asp:Button
-        ID="btnAddItem"
-        Style="font-size: 14px; padding: 8px; margin-bottom: 10px; margin-left: 10px; border: 0.5px solid"
-        runat="server"
-        Text="INSERT" OnClick="btnAddItem_Click" />
-
     <asp:Repeater ID="Repeater1" runat="server">
         <itemtemplate>
             <asp:ImageButton ID="imgBooks" CssClass="bookimage" ImageUrl='<%#Eval("BS_Image") %>' runat="server" />

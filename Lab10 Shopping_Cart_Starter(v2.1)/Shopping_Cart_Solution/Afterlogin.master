@@ -37,6 +37,7 @@
             alert.style.display = 'none';
         }
     </script>
+
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.0.4/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -76,13 +77,25 @@
             </div>
             <!--search-->
             <div class="navbar-end">
+                <asp:Label ID="Credit" runat="server" Text="Label"></asp:Label>
+                <asp:Label ID="Theme" runat="server" Text="Label" class="invisible"></asp:Label>
+                    <script>
+                    // Get the element by its id
+                    var themeElement = document.getElementById('Theme');
 
-                <button onclick="changeCountdownValue()">RM</button><!--Remove this-->
-                <div id="here" class="invisible">2344</div>
-                <span class="countdown">
-                    <span style="--value: 50;"></span>
-                </span>
-                <span id="count"></span>
+                    // Check if the element exists
+                    if (themeElement) {
+                        // Get the id and text content of the element
+                        var themeId = themeElement.id;
+                        var themeValue = themeElement.textContent || themeElement.innerText;
+
+                        // Log the values to the console
+                        console.log('Span ID:', themeId);
+                        console.log('Span Value:', themeValue.trim()); // Trim any leading/trailing whitespace
+                    } else {
+                        console.error('Element with id "Theme" not found.');
+                    }
+                    </script>
                 <button class="btn btn-ghost btn-circle">
                     <div class="indicator">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -93,6 +106,7 @@
                         <span class="badge badge-xs badge-primary indicator-item"></span>
                     </div>
                 </button>
+                <!--Cart-->
                 <div class="dropdown dropdown-end">
                     <label tabindex="0" class="btn btn-ghost btn-circle">
                         <div class="indicator">
@@ -109,7 +123,7 @@
                             <span class="font-bold text-lg">8 Items</span>
                             <span class="text-info">Subtotal: $999</span>
                             <div class="card-actions">
-                                <button class="btn btn-primary btn-block">View cart</button>
+                                <a href="Cart" class="btn btn-primary btn-block">View cart</a>
                             </div>
                         </div>
                     </div>
@@ -162,6 +176,7 @@
                     <input type="checkbox" id="my_modal_7" class="modal-toggle" />
                     <div class="modal">
                         <div class="modal-box">
+                            <br /><br />
                             <h3 class="text-lg font-bold">Themes</h3>
                             <p class="py-4">More Themes Coming Soon!</p>
                             <ul tabindex="0" class="dropdown-content z-[1] p-2 shadow-2xl bg-base-300 rounded-box w-52">
@@ -170,40 +185,74 @@
                                     <details>
                                         <summary>Dark</summary>
                                         <ul>
+                                            <script>
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                // Get the value of the theme from the span
+                                                var currentTheme = document.getElementById('Theme').textContent.trim();
+
+                                                // Find the corresponding radio button in the list
+                                                var radioButtons = document.querySelectorAll('input[name="theme-dropdown"]');
+                                                radioButtons.forEach(function (radioButton) {
+                                                    if (radioButton.value === currentTheme) {
+                                                        radioButton.checked = true; // Mark the radio button as checked
+                                                    }
+                                                });
+                                            });
+
+                                            // Function to handle theme change
+                                            function changeTheme(selectedTheme) {
+                                                // Update the text content of the span with the selected theme
+                                                var themeElement = document.getElementById('Theme');
+
+                                                if (themeElement) {
+                                                    themeElement.textContent = selectedTheme;
+                                                }
+                                            }
+                                            </script>
+                                            <script>
+                                            function changeTheme(selectedTheme) {
+                                                // Update the text content of the span with the selected theme
+                                                var themeElement = document.getElementById('Theme');
+
+                                                if (themeElement) {
+                                                    themeElement.textContent = selectedTheme;
+                                                }
+                                            }
+                                            </script>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)" type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Default" value="default" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Valentine" value="valentine" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Night" value="night" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Coffee" value="coffee" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Dracula" value="dracula" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Luxury" value="luxury" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Black" value="black" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Forest" value="forest" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Halloween" value="halloween" /></li>
 
@@ -215,63 +264,63 @@
                                         <summary>Light</summary>
                                         <ul>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Retro" value="retro" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Cyberpunk" value="cyberpunk" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Cupcake" value="cupcake" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="BumbleBee" value="bumblebee" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Emerald" value="emerald" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Corporate" value="corporate" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Winter" value="winter" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Lemonade" value="lemonade" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Acid" value="acid" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Autumn" value="autumn" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="cmyk" value="cmyk" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Fantasy" value="fantasy" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Pastel" value="pastel" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Lofi" value="lofi" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Garden" value="garden" /></li>
                                             <li>
@@ -279,7 +328,7 @@
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Wireframe" value="wireframe" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Light" value="light" /></li>
                                         </ul>
@@ -290,15 +339,15 @@
                                         <summary>Others</summary>
                                         <ul>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Cyberpunk" value="cyberpunk" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Aqua" value="aqua" /></li>
                                             <li>
-                                                <input type="radio" name="theme-dropdown"
+                                                <input onclick="changeTheme(this.value)"type="radio" name="theme-dropdown"
                                                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                                                     aria-label="Synthwave" value="synthwave" /></li>
                                         </ul>
@@ -306,11 +355,12 @@
                                 </li>
                             </ul>
                             <p class="py-4">Click outside to close modal</p>
+                        <asp:Button ID="SaveTheme" runat="server" class="btn" OnClick="SaveTheme_Click" Text="Save Theme" />
 
+                    
                         </div>
                         <label class="modal-backdrop" for="my_modal_7">Close</label>
                     </div>
-
                 </ul>
             </div>
         </div>

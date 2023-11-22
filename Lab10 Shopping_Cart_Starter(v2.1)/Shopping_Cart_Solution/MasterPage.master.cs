@@ -46,8 +46,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
         //else, insert 
         else
         {
-            string insertQuery = "INSERT INTO REGISTRATION (Id, First_Name, Last_Name, Email, Password) " +
-                "values (@id, @first, @last, @email, @password)";
+            string insertQuery = "INSERT INTO REGISTRATION (Id, First_Name, Last_Name, Email, Password, Credit) " +
+                "values (@id, @first, @last, @email, @password, @credit)";
 
             SqlCommand com = new SqlCommand(insertQuery, conn);
             string ePass = Hash.ComputeHash(txt_RegPassword.Text, "SHA512", null);
@@ -56,6 +56,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             com.Parameters.AddWithValue("@email", txt_RegEmail.Text);
             com.Parameters.AddWithValue("@first", txt_FirstName.Text);
             com.Parameters.AddWithValue("@last", txt_LastName.Text);
+            com.Parameters.AddWithValue("@credit", 200);
 
             com.ExecuteNonQuery();
 
@@ -87,19 +88,28 @@ public partial class MasterPage : System.Web.UI.MasterPage
         if (temp == 1)//checks if email exists inside DB
         {
             conn.Open();
-
+            string credit = "SELECT Credit FROM REGISTRATION WHERE Email = @email2";
+            SqlCommand creditcomm = new SqlCommand(credit, conn);
+            creditcomm.Parameters.AddWithValue("@email2", txt_Email.Text);
+            string Credit = creditcomm.ExecuteScalar().ToString();
+            Session["Credit"] = Credit;
+            string theme = "SELECT Theme FROM REGISTRATION WHERE Email = @email2";
+            SqlCommand themecomm = new SqlCommand(theme, conn);
+            themecomm.Parameters.AddWithValue("@email2", txt_Email.Text);
+            string Theme = themecomm.ExecuteScalar().ToString();
+            Session["Theme"] = Theme;
             string checkPasswordQuery = "SELECT Password FROM REGISTRATION WHERE Email = @email2";
-
             SqlCommand pwcomm = new SqlCommand(checkPasswordQuery, conn);
             pwcomm.Parameters.AddWithValue("@email2", txt_Email.Text);
             string password = pwcomm.ExecuteScalar().ToString();
             bool flag = Hash.VerifyHash(txt_Password.Text, "SHA512", password);//verifies password through hash function
-
             if (flag == true)
             {
+ 
                 Session["CHANGE_MASTERPAGE"] = "~/AfterLogin.Master";
                 Session["CHANGE_MASTERPAGE2"] = null;
                 Response.Redirect(Request.Url.AbsoluteUri);
+
             }
             else
             {

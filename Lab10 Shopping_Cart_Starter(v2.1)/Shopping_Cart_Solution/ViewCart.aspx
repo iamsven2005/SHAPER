@@ -73,6 +73,4 @@
 
     <asp:Button ID="btnCheckOut" type="button" runat="server" Text="CHECKOUT" class="checkoutbtn" OnClick="btnCheckOut_Click" />
 
-    <asp:Image ID="imgPaypal" ImageUrl="images/paypal.png" runat="server" Style="width: 95px; height: 30px; float: left; margin: 11px 5px 5px 86px" />
-
 </asp:Content>

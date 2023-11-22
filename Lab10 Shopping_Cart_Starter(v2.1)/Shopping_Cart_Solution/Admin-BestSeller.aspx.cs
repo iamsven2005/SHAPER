@@ -134,8 +134,5 @@ public partial class BestSeller : System.Web.UI.Page
         this.BindRepeater();
     }
 
-    protected void btnAddItem_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("Admin-InsertThriller.aspx");
-    }
+
 }

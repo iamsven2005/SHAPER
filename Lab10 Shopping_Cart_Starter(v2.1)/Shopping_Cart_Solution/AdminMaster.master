@@ -1,22 +1,28 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminMaster.master.cs" Inherits="MasterPage" %>
 
 <!DOCTYPE html>
-
-<html>
-<head runat="server">
-    <title>CS Bookstore</title>
+<html lang="en">
+<head>
+    <title>SHAPER</title>
+    <meta name="description" content="Shaping the way you think">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-dark">
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.0.4/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
-<asp:Label ID="lblAftLogin" runat="server" Text="ADMIN" Font-Bold="True"></asp:Label>
+<form id="form1" runat="server">
 <a href="index.aspx" style="font-family: 'Oswald', sans-serif; color: #EC7063">Sign Out</a>
 
 <a href="Admin-Users.aspx">Manage Users</a>
 <a href="Admin-Orders.aspx">Manage Orders</a>
+<a href="Admin-BestSeller.aspx">Products</a>
+<a href="Admin-InsertThriller.aspx">Add New</a>
+<a href="Admin-index.aspx">Home</a>
 
 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
 </asp:ContentPlaceHolder>
-
+</form>
 </html>
