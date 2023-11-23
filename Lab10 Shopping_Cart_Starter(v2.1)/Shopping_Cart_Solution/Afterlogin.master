@@ -78,24 +78,8 @@
             <!--search-->
             <div class="navbar-end">
                 <asp:Label ID="Credit" runat="server" Text="Label"></asp:Label>
-                <asp:Label ID="Theme" runat="server" Text="Label" class="invisible"></asp:Label>
-                    <script>
-                    // Get the element by its id
-                    var themeElement = document.getElementById('Theme');
-
-                    // Check if the element exists
-                    if (themeElement) {
-                        // Get the id and text content of the element
-                        var themeId = themeElement.id;
-                        var themeValue = themeElement.textContent || themeElement.innerText;
-
-                        // Log the values to the console
-                        console.log('Span ID:', themeId);
-                        console.log('Span Value:', themeValue.trim()); // Trim any leading/trailing whitespace
-                    } else {
-                        console.error('Element with id "Theme" not found.');
-                    }
-                    </script>
+                <asp:Label class="invisible" ID="Theme" runat="server" Text="Label"></asp:Label>
+                <asp:Textbox ID="Theme2" runat="server" Text="default" class="invisible" ></asp:Textbox>
                 <button class="btn btn-ghost btn-circle">
                     <div class="indicator">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -157,7 +141,9 @@
                 <!-- Page content here -->
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
-
+                <% foreach (string line in GetTextFileLines()) { %>
+                    <li><%= Server.HtmlEncode(line) %></li>
+                <% } %>
             </div>
             <div class="drawer-side">
                 <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
@@ -206,7 +192,10 @@
 
                                                 if (themeElement) {
                                                     themeElement.textContent = selectedTheme;
+
                                                 }
+                                                document.getElementById("InputTheme").value = themeElement.textContent;
+
                                             }
                                             </script>
                                             <script>
@@ -355,8 +344,18 @@
                                 </li>
                             </ul>
                             <p class="py-4">Click outside to close modal</p>
-                        <asp:Button ID="SaveTheme" runat="server" class="btn" OnClick="SaveTheme_Click" Text="Save Theme" />
+<asp:Button OnClientClick="copyTheme()" ID="SaveThemeButton" runat="server" class="btn" Text="Save Theme" OnClick="SaveTheme_Click" />
+<script type="text/javascript">
+    function copyTheme() {
+        // Get the Theme label and Theme2 textbox by their ClientIDs
+        var themeLabel = document.getElementById('<%= Theme.ClientID %>');
+        var themeTextbox = document.getElementById('<%= Theme2.ClientID %>');
 
+        // Copy the text from Theme label to Theme2 textbox
+        themeTextbox.value = themeLabel.innerText || themeLabel.textContent;
+       
+    }
+</script>
                     
                         </div>
                         <label class="modal-backdrop" for="my_modal_7">Close</label>
