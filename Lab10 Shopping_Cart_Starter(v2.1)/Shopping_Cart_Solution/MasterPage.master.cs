@@ -4,11 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using System.IO;
 using System.Data.SqlClient;
 using System.Configuration;
-using Salt_Password_Sample;
-
+using BCrypt.Net;
+using AjaxControlToolkit.HTMLEditor.ToolbarButton;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 public partial class MasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -23,152 +24,91 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
     protected void btnRegister_Click(object sender, EventArgs e)
     {
-        Guid newGUID = Guid.NewGuid();
-        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SunnyCS"].ConnectionString);
+        //Guid newGUID = Guid.NewGuid();
+        //SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SunnyCS"].ConnectionString);
         
-        conn.Open();
+        //conn.Open();
 
-        bool exists = false;
+        //bool exists = false;
 
-        using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [REGISTRATION] WHERE Email = @email", conn))
-        {
-            //checks if the email that the user has entered exists in the database table
-            cmd.Parameters.AddWithValue("Email", txt_RegEmail.Text);
-            exists = (int)cmd.ExecuteScalar() > 0;
-        }
+        //using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [REGISTRATION] WHERE Email = @email", conn))
+        //{
+        //    //checks if the email that the user has entered exists in the database table
+        //    cmd.Parameters.AddWithValue("Email", txt_RegEmail.Text);
+        //    exists = (int)cmd.ExecuteScalar() > 0;
+        //}
 
-        //if the email exists, send an alert
-        if (exists)
-        {
-            Response.Write("<script>alert('Sorry, Email is already taken!');</script>");
-        }
+        //if (exists)
+        //{
+        //    Response.Write("<script>alert('Sorry, Email is already taken!');</script>");
+        //}
 
-        //else, insert 
-        else
-        {
-            string insertQuery = "INSERT INTO REGISTRATION (Id, First_Name, Last_Name, Email, Password, Credit) " +
-                "values (@id, @first, @last, @email, @password, @credit)";
+        //else
+        //{
+            string Password = BCrypt.Net.BCrypt.HashPassword(txt_RegPassword.Text);
 
-            SqlCommand com = new SqlCommand(insertQuery, conn);
-            string ePass = Hash.ComputeHash(txt_RegPassword.Text, "SHA512", null);
-            com.Parameters.AddWithValue("@password", ePass);
-            com.Parameters.AddWithValue("@id", newGUID.ToString());
-            com.Parameters.AddWithValue("@email", txt_RegEmail.Text);
-            com.Parameters.AddWithValue("@first", txt_FirstName.Text);
-            com.Parameters.AddWithValue("@last", txt_LastName.Text);
-            com.Parameters.AddWithValue("@credit", 200);
+            // Resolve the absolute paths
+            string passwordsFilePath = Server.MapPath("~/Users/passwords.txt");
+            string themesFilePath = Server.MapPath("~/Users/themes.txt");
+            string creditsFilePath = Server.MapPath("~/Users/credits.txt");
+            string namesFilePath = Server.MapPath("~/Users/names.txt");
 
-            com.ExecuteNonQuery();
+            // Append hashed password to passwords.txt
+            File.AppendAllText(passwordsFilePath, $"{txt_RegEmail.Text}: {Password}" + Environment.NewLine);
+            File.AppendAllText(themesFilePath, $"{txt_RegEmail.Text}: default" + Environment.NewLine);
+            File.AppendAllText(creditsFilePath, $"{txt_RegEmail.Text}: 200" + Environment.NewLine);
+            File.AppendAllText(namesFilePath, $"{txt_RegEmail.Text}: {txt_Name.Text}" + Environment.NewLine);
 
             Response.Write("<script>alert(' <div class=\"alert alert-success\" id=\"alert\">Successfully created account! Welcome!\r\n    < button onclick = \"closeAlert()\" class= \"float-right text-white\" >×</ button ></ div >');</script>");
-        }
+        //}
 
-        conn.Close();
+        //conn.Close();
 
-        txt_FirstName.Text = "";
-        txt_LastName.Text = "";
-        txt_RegEmail.Text = "";
+        //txt_Name.Text = "";
+
+        //txt_RegEmail.Text = "";
     }
    
     protected void btnSignIn_Click(object sender, EventArgs e)
     {
-        Session["Email"] = txt_Email.Text;
-        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SunnyCS"].ConnectionString);
-
-        conn.Open();
-
-        string checkuser = "SELECT COUNT(*) FROM REGISTRATION WHERE Email = @email";
-        SqlCommand com = new SqlCommand(checkuser, conn);
-        com.Parameters.AddWithValue("@email", txt_Email.Text);
-
-        int temp = Convert.ToInt32(com.ExecuteScalar().ToString());
-
-        conn.Close();
-
-        if (temp == 1)//checks if email exists inside DB
-        {
-            conn.Open();
-            string credit = "SELECT Credit FROM REGISTRATION WHERE Email = @email2";
-            SqlCommand creditcomm = new SqlCommand(credit, conn);
-            creditcomm.Parameters.AddWithValue("@email2", txt_Email.Text);
-            string Credit = creditcomm.ExecuteScalar().ToString();
-            Session["Credit"] = Credit;
-            string theme = "SELECT Theme FROM REGISTRATION WHERE Email = @email2";
-            SqlCommand themecomm = new SqlCommand(theme, conn);
-            themecomm.Parameters.AddWithValue("@email2", txt_Email.Text);
-            string Theme = themecomm.ExecuteScalar().ToString();
-            Session["Theme"] = Theme;
-            string checkPasswordQuery = "SELECT Password FROM REGISTRATION WHERE Email = @email2";
-            SqlCommand pwcomm = new SqlCommand(checkPasswordQuery, conn);
-            pwcomm.Parameters.AddWithValue("@email2", txt_Email.Text);
-            string password = pwcomm.ExecuteScalar().ToString();
-            bool flag = Hash.VerifyHash(txt_Password.Text, "SHA512", password);//verifies password through hash function
+            Session["Email"] = txt_Email.Text;
+            string filePathCrd = Server.MapPath("~/Users/credits.txt");
+            string[] linesCrd = File.ReadAllLines(filePathCrd);
+            string targetLineCrd = Array.Find(linesCrd, line => line.StartsWith(txt_Email.Text + ":"));
+            string[] partsCrd = targetLineCrd.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            Session["Credit"] = partsCrd[1].Trim();
+            string filePathThm = Server.MapPath("~/Users/themes.txt");
+            string[] linesThm = File.ReadAllLines(filePathThm);
+            string targetLineThm = Array.Find(linesThm, line => line.StartsWith(txt_Email.Text + ":"));
+            string[] partsThm = targetLineThm.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            Session["Theme"] = partsThm[1].Trim();
+            string filePathPwd = Server.MapPath("~/Users/passwords.txt");
+            string[] linesPwd = File.ReadAllLines(filePathPwd);
+            string targetLinePwd = Array.Find(linesPwd, line => line.StartsWith(txt_Email.Text + ":"));
+            string[] partsPwd = targetLinePwd.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+            string password = partsPwd[1].Trim().ToString();
+            bool flag = BCrypt.Net.BCrypt.Verify(txt_Password.Text, password);
             if (flag == true)
             {
- 
                 Session["CHANGE_MASTERPAGE"] = "~/AfterLogin.Master";
                 Session["CHANGE_MASTERPAGE2"] = null;
                 Response.Redirect(Request.Url.AbsoluteUri);
-
             }
             else
             {
                 Response.Write("<script language=javascript>alert('Password or UserName is not correct')</script>");
             }
-        }
-        else
-        {
-            Response.Write("<script language=javascript>alert('Password or UserName is not correct')</script>");
-        }
-
-        txt_Email.Text = ""; //clears textbox after login
+        txt_Email.Text = "";
+        txt_Password.Text = "";
     }
 
     protected void btnAdminSignIn_Click(object sender, EventArgs e)
     {
-        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SunnyCS"].ConnectionString);
-
-        conn.Open();
-
-        string checkuser = "SELECT COUNT(*) FROM [ADMIN] WHERE Email = @email";
-
-        SqlCommand com = new SqlCommand(checkuser, conn);
-        com.Parameters.AddWithValue("@email", txt_AdminEmail.Text);
-
-        int temp = Convert.ToInt32(com.ExecuteScalar().ToString());
-
-        conn.Close();
-
-        if (temp == 1)
+        if (txt_AdminPassword.Text == "5002nevsmai" && txt_AdminEmail.Text == "iamsven2005@gmail.com")
         {
-            conn.Open();
-
-            string checkPasswordQuery = "SELECT AdminID, Password FROM [ADMIN] WHERE Email = @email2";
-
-            SqlCommand pwcomm = new SqlCommand(checkPasswordQuery, conn);
-            pwcomm.Parameters.AddWithValue("@email2", txt_AdminEmail.Text);
-
-            SqlDataReader reader = pwcomm.ExecuteReader();
-            reader.Read();
-            string password = reader["Password"].ToString();
-            string UserId = reader["AdminID"].ToString();
-            reader.Close();
-
-            if (password == txt_AdminPassword.Text)
-            {
-                Response.Redirect("Admin-index.aspx");
-            }
-            else
-            {
-                reader.Close();
-                Response.Write("<script language=javascript>alert('Password or Username is not correct')</script>");
-            }
+            Response.Redirect("Admin-index.aspx");
         }
-        else
-        {
-            Response.Write("<script language=javascript>alert('Password or UserName is not correct')</script>");
-        }
-
         txt_AdminEmail.Text = "";
+        txt_AdminPassword.Text = "";
     }
 }

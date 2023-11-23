@@ -14,6 +14,7 @@
         routes.MapPageRoute("Home", "", "~/index.aspx");
         routes.MapPageRoute("Products", "Shop", "~/BestSeller.aspx");
         routes.MapPageRoute("Cart", "Cart", "~/ViewCart.aspx");
+        //services
 
     }
     void Application_End(object sender, EventArgs e)
@@ -28,6 +29,11 @@
         Exception ex = Server.GetLastError();
         Server.ClearError();
         if (ex is HttpException && ((HttpException)ex).GetHttpCode() == 404.0)
+        {
+            Response.Redirect("/");
+
+        }
+        else if (ex is HttpException && ((HttpException)ex).GetHttpCode() == 403.0)
         {
             Response.Redirect("/");
 

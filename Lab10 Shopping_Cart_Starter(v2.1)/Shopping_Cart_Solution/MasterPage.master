@@ -178,8 +178,7 @@
                                 <div class="card w-96 bg-base-100 shadow-xl">
                                     <div class="card-body">
                                         <h2 class="card-title">Register</h2>
-                                        <asp:TextBox ID="txt_FirstName" class="input  input-bordered w-full" PlaceHolder="First Name" runat="server"></asp:TextBox>
-                                        <asp:TextBox ID="txt_LastName" class="input  input-bordered w-full" PlaceHolder="Last Name" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="txt_Name" class="input  input-bordered w-full" PlaceHolder="Name" runat="server"></asp:TextBox>
                                         <asp:TextBox ID="txt_RegEmail" class="input  input-bordered w-full" PlaceHolder="Email Address" runat="server" TextMode="Email"></asp:TextBox>
                                         <asp:TextBox ID="txt_RegPassword" class="input  input-bordered w-full" PlaceHolder="Password" runat="server" TextMode="Password"></asp:TextBox>
                                         <label for="showPassword" class="swap swap-rotate">

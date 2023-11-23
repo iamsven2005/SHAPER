@@ -4,15 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
 using System.Data.SqlClient;
 using System.Configuration;
-using Salt_Password_Sample;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Data;
 using Microsoft.Identity.Client;
 using System.IO;
 using System.Web.Services.Description;
+using static System.Net.WebRequestMethods;
+using System.Security.Cryptography;
+using System.Windows;
+using File = System.IO.File;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
@@ -26,10 +28,11 @@ public partial class MasterPage : System.Web.UI.MasterPage
         string targetLine = Array.Find(lines, line => line.StartsWith(lblAftLogin.Text + ":"));
         string[] parts = targetLine.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
         Theme.Text = parts[1].Trim();
-        //Session["Theme"].ToString();
-        //DeleteFromFile("robots.txt", "Line to delete");
-        //AppendToFile("robots.txt", "New line to append");
-
+        string filePathPics = Server.MapPath("~/Users/pictures.txt");
+        string[] linesPics = File.ReadAllLines(filePathPics);
+        string targetLinePics = Array.Find(linesPics, linePics => linePics.StartsWith(lblAftLogin.Text + ":"));
+        string[] partsPics = targetLinePics.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+        Pics.Text = partsPics[1].Trim();
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {
@@ -64,9 +67,12 @@ public partial class MasterPage : System.Web.UI.MasterPage
     }
     protected string[] GetTextFileLines()
     {
-        string filePath = Server.MapPath("~/Users/themes.txt"); // Adjust the path based on your file location
+        string filePath = Server.MapPath("~/Users/pictures.txt");
         return File.Exists(filePath) ? File.ReadAllLines(filePath) : new string[0];
     }
+    //Session["Theme"].ToString();
+    //DeleteFromFile("robots.txt", "Line to delete");
+    //AppendToFile("robots.txt", "New line to append");
     //protected void DeleteFromFile(string filePath, string lineToDelete)
     //{
     //    // Combine the file path with the application's root
