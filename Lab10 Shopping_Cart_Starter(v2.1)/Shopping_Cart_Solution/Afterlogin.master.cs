@@ -61,15 +61,16 @@ public partial class MasterPage : System.Web.UI.MasterPage
             Response.Redirect(Request.RawUrl, false);
             Context.ApplicationInstance.CompleteRequest();
         }
-
-
-
     }
-    protected string[] GetTextFileLines()
+    protected void btnInsertItems_Click(object sender, EventArgs e)
     {
-        string filePath = Server.MapPath("~/Users/pictures.txt");
-        return File.Exists(filePath) ? File.ReadAllLines(filePath) : new string[0];
+        string image = "";
+        image = "Users/" + FileUpload1.FileName;
+        string saveimg = Server.MapPath(" ") + "\\" + image;
+        FileUpload1.SaveAs(saveimg);
+        Response.Write("<script>alert('Insert Successful');</script>");
     }
+}
     //Session["Theme"].ToString();
     //DeleteFromFile("robots.txt", "Line to delete");
     //AppendToFile("robots.txt", "New line to append");
@@ -111,4 +112,3 @@ public partial class MasterPage : System.Web.UI.MasterPage
     //        Response.Write($"Error appending to the file: {ex.Message}");
     //    }
     //}
-}

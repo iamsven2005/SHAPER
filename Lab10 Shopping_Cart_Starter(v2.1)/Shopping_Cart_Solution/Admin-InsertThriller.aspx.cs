@@ -35,18 +35,12 @@ public partial class Admin_InsertThriller : System.Web.UI.Page
         {
             string saveimg = Server.MapPath(" ") + "\\" + image;
             FileUpload1.SaveAs(saveimg);
-            //loadProductInfo();
-            //loadProduct();
-            //clear1();
         }
 
         if (result2 > 0)
         {
             string saveimg = Server.MapPath(" ") + "\\" + image;
             FileUpload1.SaveAs(saveimg);
-            //loadProductInfo();
-            //loadProduct();
-            //clear1();
             Response.Write("<script>alert('Insert Successful');</script>");
         }
 

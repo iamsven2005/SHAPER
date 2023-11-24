@@ -116,20 +116,19 @@
                 <div class="dropdown dropdown-end">
                     <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                         <div class="w-10 rounded-full">
-                            <asp:Label ID="Pics" runat="server" Text="Label"></asp:Label>    
+                            <asp:Label ID="Pics" runat="server" Text="Label"></asp:Label>
                         </div>
                     </label>
                     <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                        <li>
-                            <a href="#">
-                                <asp:Label ID="lblAftLogin" runat="server" Text="Label" Font-Bold="True"></asp:Label>
-                            </a>
-                        </li>
+                        <li><details>
+                        <summary><asp:Label ID="lblAftLogin" runat="server" Text="Label" Font-Bold="True"></asp:Label></summary>
+                        <ul>
+                          <li><asp:FileUpload ID="FileUpload1" runat="server" /></li>
+                          <li><asp:Button CssClass="btns" ID="btnInsertItems" runat="server" Text="Insert" OnClick="btnInsertItems_Click" /></li>
+                        </ul>
+                      </details></li>
                         <li><a>Settings</a></li>
-                        <li><a>
-                            <asp:Button ID="btnSignOut" runat="server" Text="Sign Out" OnClick="btnSignOut_Click" /></a></li>
-
-
+                        <li><a><asp:Button ID="btnSignOut" runat="server" Text="Sign Out" OnClick="btnSignOut_Click" /></a></li>
                     </ul>
                 </div>
             </div>
@@ -143,10 +142,7 @@
                 <!-- Page content here -->
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
-                <% foreach (string line in GetTextFileLines())
-                    { %>
-                <li><%= Server.HtmlEncode(line) %></li>
-                <% } %>
+
             </div>
             <div class="drawer-side">
                 <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
@@ -157,7 +153,7 @@
                     <br>
                     <br>
                     <asp:TextBox ID="txtSearch" PlaceHolder="Search" class="input w-full" runat="server"></asp:TextBox>
-                    <asp:Button ID="btnSearch" runat="server" class="btn" Text="🔍" OnClick="btnSearch_Click" />
+                    <asp:Button ID="btnSearch" runat="server" class="btn" Text="🔍Search" OnClick="btnSearch_Click" />
                     <br>
                     <li><a>View Shop</a></li>
                     <li><a>About Us </a></li>

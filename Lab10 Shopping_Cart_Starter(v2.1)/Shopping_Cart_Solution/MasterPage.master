@@ -142,7 +142,6 @@
                                             <p class="swap-off fill-current w-10 h-10" />
                                             😆</p>
                                         </label>
-                                        <asp:CheckBox ID="CheckBox1" runat="server" Text="Remember Me" Checked="true" />
                                         <div class="card-actions justify-end">
                                             <asp:Button ID="btnSignIn" class="btn mt-2 w-full" runat="server" Text="Secure Sign In" OnClick="btnSignIn_Click" />
                                         </div>
@@ -234,7 +233,7 @@
                         <br>
                         <br>
                         <asp:TextBox ID="txtSearch" PlaceHolder="Search" class="input w-full" runat="server"></asp:TextBox>
-                        <asp:Button ID="btnSearch" runat="server" class="btn" Text="🔍" OnClick="btnSearch_Click" />
+                        <asp:Button ID="btnSearch" runat="server" class="btn" Text="🔍Search" OnClick="btnSearch_Click" />
                         <br>
                     </li>
                     <li><a href="#">View Shop</a></li>

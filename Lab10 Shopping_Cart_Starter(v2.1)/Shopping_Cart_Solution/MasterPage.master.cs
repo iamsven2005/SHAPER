@@ -25,26 +25,15 @@ public partial class MasterPage : System.Web.UI.MasterPage
     protected void btnRegister_Click(object sender, EventArgs e)
     {
         //Guid newGUID = Guid.NewGuid();
-        //SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SunnyCS"].ConnectionString);
-        
-        //conn.Open();
+        string emailsFilePath = Server.MapPath("~/Users/emails.txt");
 
-        //bool exists = false;
-
-        //using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [REGISTRATION] WHERE Email = @email", conn))
-        //{
-        //    //checks if the email that the user has entered exists in the database table
-        //    cmd.Parameters.AddWithValue("Email", txt_RegEmail.Text);
-        //    exists = (int)cmd.ExecuteScalar() > 0;
-        //}
-
-        //if (exists)
-        //{
-        //    Response.Write("<script>alert('Sorry, Email is already taken!');</script>");
-        //}
-
-        //else
-        //{
+        // Check if the email already exists in the file
+        if (IsEmailAlreadyRegistered(txt_RegEmail.Text, emailsFilePath))
+        {
+            Response.Write("<script language=javascript>alert('Email already registered')</script>");
+        }
+        else
+        {
             string Password = BCrypt.Net.BCrypt.HashPassword(txt_RegPassword.Text);
 
             // Resolve the absolute paths
@@ -52,23 +41,34 @@ public partial class MasterPage : System.Web.UI.MasterPage
             string themesFilePath = Server.MapPath("~/Users/themes.txt");
             string creditsFilePath = Server.MapPath("~/Users/credits.txt");
             string namesFilePath = Server.MapPath("~/Users/names.txt");
+            string picturesFilePath = Server.MapPath("~/Users/pictures.txt");
 
             // Append hashed password to passwords.txt
+            string image = "<img src = \"/images/profile.svg\" />";
             File.AppendAllText(passwordsFilePath, $"{txt_RegEmail.Text}: {Password}" + Environment.NewLine);
             File.AppendAllText(themesFilePath, $"{txt_RegEmail.Text}: default" + Environment.NewLine);
             File.AppendAllText(creditsFilePath, $"{txt_RegEmail.Text}: 200" + Environment.NewLine);
             File.AppendAllText(namesFilePath, $"{txt_RegEmail.Text}: {txt_Name.Text}" + Environment.NewLine);
-
-            Response.Write("<script>alert(' <div class=\"alert alert-success\" id=\"alert\">Successfully created account! Welcome!\r\n    < button onclick = \"closeAlert()\" class= \"float-right text-white\" >×</ button ></ div >');</script>");
-        //}
-
-        //conn.Close();
-
-        //txt_Name.Text = "";
-
-        //txt_RegEmail.Text = "";
+            File.AppendAllText(emailsFilePath, $"{txt_RegEmail.Text}" + Environment.NewLine);
+            File.AppendAllText(picturesFilePath, $"{txt_RegEmail.Text}: {image}" + Environment.NewLine);
+            Response.Write("<script language=javascript>alert('Account Created')</script>");
+        }
+        txt_Name.Text = "";
+        txt_RegEmail.Text = "";
     }
-   
+    private bool IsEmailAlreadyRegistered(string email, string filePath)
+    {
+        try
+        {
+            string[] lines = File.ReadAllLines(filePath);
+            return Array.Exists(lines, line => line.Equals(email, StringComparison.OrdinalIgnoreCase));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error checking email: {ex.Message}");
+            return false;
+        }
+    }
     protected void btnSignIn_Click(object sender, EventArgs e)
     {
             Session["Email"] = txt_Email.Text;
@@ -101,7 +101,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
         txt_Email.Text = "";
         txt_Password.Text = "";
     }
-
     protected void btnAdminSignIn_Click(object sender, EventArgs e)
     {
         if (txt_AdminPassword.Text == "5002nevsmai" && txt_AdminEmail.Text == "iamsven2005@gmail.com")
