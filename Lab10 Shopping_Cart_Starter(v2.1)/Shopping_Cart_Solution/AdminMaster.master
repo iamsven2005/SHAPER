@@ -3,25 +3,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>SHAPER</title>
-    <meta name="description" content="Shaping the way you think">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-dark">
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.0.4/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
+ <title>SHAPER</title>
+ <meta name="description" content="Shaping the way you think">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="theme-dark">
+ <asp:ContentPlaceHolder ID="head" runat="server">
+ </asp:ContentPlaceHolder>
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <link href="https://cdn.jsdelivr.net/npm/daisyui@4.0.4/dist/full.min.css" rel="stylesheet" type="text/css" />
+ <script src="https://cdn.tailwindcss.com"></script>
+ <script>
+ function closeAlert() {
+ const alert = document.getElementById('alert');
+ alert.style.display = 'none';
+ }
+ function scrollToTop() {
+ window.scrollTo({
+ top: 0,
+ behavior: "smooth"
+ });
+ }
+ </script>
 </head>
+<div class="toast toast-end">
+ <asp:Label ID="Alerts" PlaceHolder="Name" runat="server"></asp:Label>
+</div>
 <form id="form1" runat="server">
-<a href="index.aspx" style="font-family: 'Oswald', sans-serif; color: #EC7063">Sign Out</a>
 
-<a href="Admin-Users.aspx">Manage Users</a>
-<a href="Admin-Orders.aspx">Manage Orders</a>
-<a href="Admin-BestSeller.aspx">Products</a>
-<a href="Admin-InsertThriller.aspx">Add New</a>
-<a href="Admin-index.aspx">Home</a>
+<asp:Button ID="btnSignOut" runat="server" Text="Sign Out" OnClick="btnSignOut_Click" />
 
+<table class="table table-zebra table-hover">
+ <tr>
+ <th>Id</th>
+ <th>Emails</th>
+ <th>Names</th>
+ <th>Credits</th>
+ <th>Pictures</th>
+ </tr>
+ <% for (int i = 0; i < Math.Max(GetTextFileLines1().Length, Math.Max(GetTextFileLines2().Length, Math.Max(GetTextFileLines3().Length, GetTextFileLines4().Length))); i++) { %> 
+ <tr>
+ <td><%= i%></td>
+ <td><%= i < GetTextFileLines1().Length ? Server.HtmlEncode(GetTextFileLines1()[i]) : "" %></td>
+ <td><%= i < GetTextFileLines2().Length ? Server.HtmlEncode(GetTextFileLines2()[i]) : "" %></td>
+ <td><%= i < GetTextFileLines3().Length ? Server.HtmlEncode(GetTextFileLines3()[i]) : "" %></td>
+ <td><%= i < GetTextFileLines4().Length ? Server.HtmlEncode(GetTextFileLines4()[i]) : "" %></td>
+ </tr>
+ <% } %>
+</table>
+ 
+ <asp:GridView ID="gvOrders" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="OrderID" DataSourceID="SqlDataSource2">
+ <Columns>
+ <asp:BoundField DataField="OrderID" HeaderText="OrderID" ReadOnly="True" SortExpression="OrderID" />
+ <asp:BoundField DataField="FirstName" HeaderText="FirstName" SortExpression="FirstName" />
+ <asp:BoundField DataField="LastName" HeaderText="LastName" SortExpression="LastName" />
+ <asp:BoundField DataField="Address" HeaderText="Address" SortExpression="Address" />
+ <asp:BoundField DataField="ZipCode" HeaderText="ZipCode" SortExpression="ZipCode" />
+ <asp:BoundField DataField="PhoneNo" HeaderText="PhoneNo" SortExpression="PhoneNo" />
+ </Columns>
+ </asp:GridView>
+ <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:SunnyCS %>" SelectCommand="SELECT * FROM [ORDERS]"></asp:SqlDataSource>
+<asp:Label CssClass="labels" ID="lblID" runat="server" Text="Product ID"></asp:Label>
+<asp:TextBox Style="width: 20%; height: 30px; border: 0.5px solid" ID="txtThrillerID" runat="server"></asp:TextBox>
+<asp:Label CssClass="labels" ID="Label1" runat="server" Text="Product Name"></asp:Label>
+<asp:TextBox CssClass="textboxes" ID="txtThrillerName" runat="server"></asp:TextBox>
+<asp:Label CssClass="labels" ID="Label2" runat="server" Text="Product Author"></asp:Label>
+<asp:TextBox CssClass="textboxes" ID="txtThrillerAuthor" runat="server"></asp:TextBox>
+<asp:Label CssClass="labels" ID="Label3" runat="server" Text="Unit Price"></asp:Label>
+<asp:TextBox Style="width: 30%; height: 30px; border: 0.5px solid" ID="txtThrillerPrice" runat="server"></asp:TextBox>
+<asp:Label CssClass="labels" ID="Label4" runat="server" Text="Product Genre"></asp:Label>
+<asp:TextBox CssClass="textboxes" ID="txtThrillerGenre" runat="server"></asp:TextBox>
+<asp:Label CssClass="labels" ID="Label5" runat="server" Text="Image"></asp:Label>
+<asp:FileUpload ID="FileUpload1" runat="server" />
+<asp:Label CssClass="labels" ID="Label6" runat="server" Text="Description"></asp:Label>
+<asp:TextBox Style="width: 100%; height: 80px; border: 0.5px solid" ID="txtThrillerDesc" runat="server" TextMode="MultiLine"></asp:TextBox>
+<asp:Button CssClass="btns" ID="btnInsertItems" runat="server" Text="Insert" OnClick="btnInsertItems_Click" />
+ <asp:Repeater ID="Repeater1" runat="server">
+ <itemtemplate>
+ <asp:ImageButton ID="imgBooks" CssClass="bookimage" ImageUrl='<%#Eval("BS_Image") %>' runat="server" />
+ <asp:TextBox ID="txtImage" Text='<%#Eval("BS_Image")%>' runat="server" Visible="False"></asp:TextBox>
+ <asp:Label CssClass="booktitle" ID="lblTitle" runat="server" Text='<%#Eval("BS_Title")%>'></asp:Label>
+ <asp:TextBox ID="txtTitle" Text='<%#Eval("BS_Title")%>' runat="server" Visible="False"></asp:TextBox>
+ <asp:Label CssClass="bookauthor" ID="lblAuthor" runat="server" Text='<%#Eval("BS_Author") %>' Style="color: #48C9B0"></asp:Label>
+ <asp:TextBox ID="txtAuthor" Text='<%#Eval("BS_Author") %>' runat="server" Visible="False"></asp:TextBox>
+ <asp:Label ID="lblBookId" runat="server" Text='<%# Eval("BS_ID") %>' Visible="False"></asp:Label>
+ <asp:LinkButton ID="lnkEdit" Text="Edit |" runat="server" OnClick="OnEdit" Font-Size="X-Small" />
+ <asp:LinkButton ID="lnkUpdate" Text="Update |" runat="server" Visible="false" OnClick="OnUpdate" Font-Size="X-Small" />
+ <asp:LinkButton ID="lnkCancel" Text="Cancel |" runat="server" Visible="false" OnClick="OnCancel" Font-Size="X-Small" />
+ <asp:LinkButton
+ ID="lnkDelete"
+ Text="Delete"
+ runat="server"
+ OnClick="OnDelete"
+ OnClientClick="return confirm('Are you sure you want to delete this?');"
+ Font-Size="X-Small" />
+
+ </itemtemplate>
+ </asp:Repeater>
+ <button id="backToTopBtn" class="btn" type="button" onclick="scrollToTop()">Back to Top</button>
+<ul class="menu menu-xs bg-base-200 rounded-lg max-w-xs w-full">
+<li class="menu-title">Utils</li>
+<!--Zip Folder-->
+<li>Zip Folders<ul>
+<li><asp:TextBox ID="downloadtb" runat="server"></asp:TextBox></li>
+<li><asp:Button ID="btnDownload" runat="server" Text="Download Folder" OnClick="btnDownload_Click" /></li>
+</ul></details></li>
+<!--Password Changer-->
+<li>Reset Password<ul>
+<li>Email:</li>
+<li><asp:Textbox ID="lblAftLogin" runat="server" ></asp:Textbox></li>
+<li>New Password:</li>
+<li><asp:Textbox ID="NewPassword" runat="server" ></asp:Textbox></li>
+<li><asp:Button CssClass="btns" ID="SavePwd" runat="server" Text="Change Password" OnClick="ChangePassword" /></li>
+</ul></li>
+<!---->
+</ul>
 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
 </asp:ContentPlaceHolder>
 </form>

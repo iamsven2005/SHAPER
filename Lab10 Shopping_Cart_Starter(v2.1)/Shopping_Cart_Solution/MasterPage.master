@@ -4,277 +4,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>SHAPER</title>
-    <meta name="description" content="Shaping the way you think">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-dark">
-    <style>
-        tr {
-            height: 10vh;
-        }
+ <title>SHAPER</title>
+ <meta name="description" content="Shaping the way you think">
+ <script src="https://www.google.com/recaptcha/api.js" ></script>
 
-        .swap {
-            z-index: 2;
-            position: fixed;
-        }
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="theme-dark">
+ <script>
+ function closeAlert() {
+ const alert = document.getElementById('alert');
+ alert.style.display = 'none';
+ }
 
-        .svg:hover {
-            transform: rotate(180deg);
-            animation-direction: reverse;
-        }
+ function togglePasswordVisibility() {
+ var passwordInput = document.getElementById("txt_RegPassword");
+ var showPasswordCheckbox = document.getElementById("showPassword");
 
-        .svg {
-            transform: rotate(0deg);
-            transition: transform 0.5s ease-in-out;
-        }
+ // Check if the checkbox is checked
+ if (showPasswordCheckbox.checked) {
+ // If checked, change the input type to "text" to show the password
+ passwordInput.type = "text";
+ } else {
+ // If unchecked, change the input type back to "password" to hide the password
+ passwordInput.type = "password";
+ }
+ }
+ function togglePasswordVisibilityAdmin() {
+ var passwordInput2 = document.getElementById("txt_AdminPassword");
+ var showPasswordCheckbox2 = document.getElementById("showPassword2");
 
-        .invisible {
-            display: none;
-        }
-    </style>
-    <script>
-        function closeAlert() {
-            const alert = document.getElementById('alert');
-            alert.style.display = 'none';
-        }
+ // Check if the checkbox is checked
+ if (showPasswordCheckbox2.checked) {
+ // If checked, change the input type to "text" to show the password
+ passwordInput2.type = "text";
+ } else {
+ // If unchecked, change the input type back to "password" to hide the password
+ passwordInput2.type = "password";
+ }
+ }
+ function togglePasswordVisibilitySign() {
+ var passwordInput3 = document.getElementById("txt_Password");
+ var showPasswordCheckbox3 = document.getElementById("showPassword3");
 
-        function togglePasswordVisibility() {
-            var passwordInput = document.getElementById("txt_RegPassword");
-            var showPasswordCheckbox = document.getElementById("showPassword");
+ // Check if the checkbox is checked
+ if (showPasswordCheckbox3.checked) {
+ // If checked, change the input type to "text" to show the password
+ passwordInput3.type = "text";
+ } else {
+ // If unchecked, change the input type back to "password" to hide the password
+ passwordInput3.type = "password";
+ }
+ }
+ function scrollToTop() {
+ window.scrollTo({
+ top: 0,
+ behavior: "smooth"
+ });
+ }
 
-            // Check if the checkbox is checked
-            if (showPasswordCheckbox.checked) {
-                // If checked, change the input type to "text" to show the password
-                passwordInput.type = "text";
-            } else {
-                // If unchecked, change the input type back to "password" to hide the password
-                passwordInput.type = "password";
-            }
-        }
-        function togglePasswordVisibilityAdmin() {
-            var passwordInput2 = document.getElementById("txt_AdminPassword");
-            var showPasswordCheckbox2 = document.getElementById("showPassword2");
 
-            // Check if the checkbox is checked
-            if (showPasswordCheckbox2.checked) {
-                // If checked, change the input type to "text" to show the password
-                passwordInput2.type = "text";
-            } else {
-                // If unchecked, change the input type back to "password" to hide the password
-                passwordInput2.type = "password";
-            }
-        }
-        function togglePasswordVisibilitySign() {
-            var passwordInput3 = document.getElementById("txt_Password");
-            var showPasswordCheckbox3 = document.getElementById("showPassword3");
+ </script>
 
-            // Check if the checkbox is checked
-            if (showPasswordCheckbox3.checked) {
-                // If checked, change the input type to "text" to show the password
-                passwordInput3.type = "text";
-            } else {
-                // If unchecked, change the input type back to "password" to hide the password
-                passwordInput3.type = "password";
-            }
-        }
-    </script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.0.4/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+ <style>
+ tr {
+ height: 10vh;
+ }
 
+ .svg:hover {
+ transform: rotate(180deg);
+ animation-direction: reverse;
+ }
+
+ .svg {
+ transform: rotate(0deg);
+ transition: transform 0.5s ease-in-out;
+ }
+
+ .invisible {
+ display: none;
+ }
+ .starts {
+ position: fixed;
+ top: 20px;
+ left: 10px;
+ z-index: 1000; 
+ }
+
+ </style>
+
+ <link href="https://cdn.jsdelivr.net/npm/daisyui@4.0.4/dist/full.min.css" rel="stylesheet" type="text/css" />
+ <script src="https://cdn.tailwindcss.com"></script>
+ <asp:ContentPlaceHolder ID="head" runat="server">
+ </asp:ContentPlaceHolder>
 </head>
 <!--Navbar-->
+<div class="starts">
+<label for="my-drawer" class="svg btn btn-circle swap ">
+<svg class="swap-off fill-current" fill="#fff" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+<path d="m589 616v14h-368v-14z" />
+<path d="m589 180v13h-368v-13z" />
+<path d="m630 211v368h-14v-368z" />
+<path d="m193 211v368h-13v-368z" />
+<path d="m617 616h-28v14h41v-41h-14z" />
+<path d="m617 193v28h14v-41h-41v13z" />
+<path d="m193 616v-28h-13v41h41v-14z" />
+<path d="m193 193h28v-13h-41v41h13z" />
+</svg><svg class="swap-on fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+viewBox="0 0 800 800" fill="#fff"></svg></label>
+</div>
+<div class="toast toast-end">
+ <asp:Label ID="Alerts" PlaceHolder="Name" runat="server"></asp:Label>
+</div>
+
 <body>
-    <form runat="server">
-        <div class="navbar bg-base-200">
+ <form runat="server">
+ <div class="navbar bg-base-200">
+ <div class="navbar-start">
+ </div>
+ <div class="navbar-center">
+ <div class="stat text-center font-bold">
+ <svg class="bg-accent-content"fill="#fff" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+ <path class="bg-base-100"
+ d="m160 400c0-130 110-240 240-240 140 0 250 110 250 240 0 140-110 250-250 250-130 0-240-110-240-250zm480 0c0-120-110-230-240-230-120 0-230 110-230 230 0 130 110 230 230 230 130 0 230-100 230-230zm-10 0m-430-230v-10h400v10m-400 0m0 480v-10h400v10m-400 0m-40-50v-400h10v400m-10 0m480 0v-400h10v400m-10 0m-470-430h30v-10h-40v40h10m0-30m0 470v-40h-10v50h40v-10m-30 0m470-470v30h10v-40h-50v10m40 0m0 470h-40v10h50v-50h-10m0 40m-440-340h400l-200 320m170-320h-340l170 300" />
+ </svg>SHAPER
+ </div>
+ </div>
+ <!--search-->
+ <div class="navbar-end">
+ <!-- Modal For Sign in -->
+ <label for="my_modal_6" class="btn">Sign In</label>
+ <input type="checkbox" id="my_modal_6" class="modal-toggle" />
+ <div class="modal">
+ <div class="modal-box">
+ <!--Start of tabs-->
+ <!--Sign iN-->
+ <h3 class="font-bold text-lg">Sign In!</h3>
+ <p class="py-4">Sign in to add a post</p>
+ <div class="tabs tabs-lifted">
+ <input type="radio" name="my_tabs_2" class="tab" aria-label="Sign&nbsp_In" checked />
+ <div class="tab-content bg-base-100 border-base-300 rounded-box p-10">
+ <div class="card w-96 bg-base-100 shadow-xl">
+ <div class="card-body">
+ <h2 class="card-title">Sign In</h2>
+ <asp:TextBox ID="txt_Email" class="input input-bordered w-full" PlaceHolder="Email Address" runat="server" TextMode="Email"></asp:TextBox>
+ <asp:TextBox ID="txt_Password" class="input input-bordered w-full" PlaceHolder="Password" runat="server" TextMode="Password"></asp:TextBox>
+ <label for="showPassword3" class="swap swap-rotate">
+ <input type="checkbox" id="showPassword3" onclick="togglePasswordVisibilitySign()">
+ <p class="swap-on fill-current w-10 h-10">👀</p>
+ <p class="swap-off fill-current w-10 h-10" />
+ 😆</p>
+ </label>
+ <div class="card-actions justify-end">
+ <asp:Button ID="btnSignIn" class="btn mt-2 w-full" runat="server" Text="Secure Sign In" OnClick="btnSignIn_Click" />
 
-            <div class="navbar-start">
-                <label for="my-drawer" class="svg btn btn-circle swap">
-                    <svg class="swap-off fill-current" fill="#fff" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
-                        <path d="m589 616v14h-368v-14z" />
-                        <path d="m589 180v13h-368v-13z" />
-                        <path d="m630 211v368h-14v-368z" />
-                        <path d="m193 211v368h-13v-368z" />
-                        <path d="m617 616h-28v14h41v-41h-14z" />
-                        <path d="m617 193v28h14v-41h-41v13z" />
-                        <path d="m193 616v-28h-13v41h41v-14z" />
-                        <path d="m193 193h28v-13h-41v41h13z" />
-                    </svg>
+ </div>
+ </div>
+ </div>
+ </div>
+ <!--admin-->
+ <input type="radio" name="my_tabs_2" class="tab" aria-label="Admin" />
+ <div class="tab-content bg-base-100 border-base-300 rounded-box p-10">
+ <div class="card w-96 bg-base-100 shadow-xl">
+ <div class="card-body">
+ <h2 class="card-title">Admin</h2>
+ <asp:TextBox ID="txt_AdminEmail" class="input input-bordered w-full" PlaceHolder="Email Address" runat="server"></asp:TextBox>
+ <asp:TextBox ID="txt_AdminPassword" class="input input-bordered w-full" PlaceHolder="Password" runat="server" TextMode="Password"></asp:TextBox>
+ <label for="showPassword2" class="swap swap-rotate">
+ <input type="checkbox" id="showPassword2" onclick="togglePasswordVisibilityAdmin()">
+ <p class="swap-on fill-current w-10 h-10">👀</p>
+ <p class="swap-off fill-current w-10 h-10" />
+ 😆</p>
+ </label>
+ <div class="card-actions justify-end">
+ <asp:Button ID="btnAdminSignIn" class="btn mt-2 w-full" runat="server" Text="Secure Sign In" OnClick="btnAdminSignIn_Click" />
+ </div>
+ </div>
+ </div>
+ </div>
 
-                    <svg class="swap-on fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                        viewBox="0 0 800 800" fill="#fff">
-                    </svg>
-                </label>
+<!--Register-->
+ <input type="radio" name="my_tabs_2" class="tab" aria-label="Register" />
+ <div class="tab-content bg-base-100 border-base-300 rounded-box p-10">
+ <div class="card w-96 bg-base-100 shadow-xl">
+ <div class="card-body">
+ <h2 class="card-title">Register</h2>
+ <asp:TextBox ID="txt_Name" class="input input-bordered w-full" PlaceHolder="Name" runat="server"></asp:TextBox>
+ <asp:TextBox ID="txt_RegEmail" class="input input-bordered w-full" PlaceHolder="Email Address" runat="server" TextMode="Email"></asp:TextBox>
+ <asp:TextBox ID="txt_RegPassword" class="input input-bordered w-full" PlaceHolder="Password" runat="server" TextMode="Password"
+ pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}"
+ title="Must be more than 8 characters and include at least one lowercase letter, one uppercase letter, one digit, and one special character."></asp:TextBox>
+ <asp:TextBox ID="txt_ConfirmPW" class="input input-bordered w-full" PlaceHolder="Confirm Password" runat="server" TextMode="Password"></asp:TextBox>
+ <asp:CompareValidator
+ ID="CompareValidatorPW"
+ runat="server"
+ ErrorMessage="Passwords do not match."
+ ControlToValidate="txt_ConfirmPW"
+ ControlToCompare="txt_RegPassword"
+ Operator="Equal" Type="String"
+ ForeColor="Red">
+ </asp:CompareValidator>
+ <label for="showPassword" class="swap swap-rotate">
+ <input type="checkbox" id="showPassword" onclick="togglePasswordVisibility()">
+ <p class="swap-on fill-current w-10 h-10">👀</p>
+ <p class="swap-off fill-current w-10 h-10" />
+ 😆</p>
+ </label>
+ <p>-Must be more than 8 Characters <br> -Must have lowercase letter <br> -Must have uppercase letter <br> -Must have digit <br> -Must have special character </p>
+ <p id="password-validation-msg"></p>
 
-            </div>
-            <div class="navbar-center">
-                <div class="stat text-center font-bold">
-                    <svg fill="#fff" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="m160 400c0-130 110-240 240-240 140 0 250 110 250 240 0 140-110 250-250 250-130 0-240-110-240-250zm480 0c0-120-110-230-240-230-120 0-230 110-230 230 0 130 110 230 230 230 130 0 230-100 230-230zm-10 0m-430-230v-10h400v10m-400 0m0 480v-10h400v10m-400 0m-40-50v-400h10v400m-10 0m480 0v-400h10v400m-10 0m-470-430h30v-10h-40v40h10m0-30m0 470v-40h-10v50h40v-10m-30 0m470-470v30h10v-40h-50v10m40 0m0 470h-40v10h50v-50h-10m0 40m-440-340h400l-200 320m170-320h-340l170 300" />
-                    </svg>SHAPER
-                </div>
-            </div>
-            <!--search-->
-            <div class="navbar-end">
-                <!-- Modal For Sign in -->
+ <div class="card-actions justify-end">
+ <asp:Button ID="btnRegister" class="btn mt-2 w-full" runat="server" Text="Create Account" OnClick="btnRegister_Click" />
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
 
-
-                <label for="my_modal_6" class="btn">Sign In</label>
-                <input type="checkbox" id="my_modal_6" class="modal-toggle" />
-                <div class="modal">
-                    <div class="modal-box">
-                        <!--Start of tabs-->
-                        <h3 class="font-bold text-lg">Sign In!</h3>
-                        <p class="py-4">Sign in to add a post</p>
-                        <div class="tabs tabs-lifted">
-                            <input type="radio" name="my_tabs_2" class="tab" aria-label="Sign&nbsp_In" checked />
-                            <div class="tab-content bg-base-100 border-base-300 rounded-box p-10">
-                                <div class="card w-96 bg-base-100 shadow-xl">
-                                    <div class="card-body">
-                                        <h2 class="card-title">Sign In</h2>
-                                        <asp:TextBox ID="txt_Email" class="input  input-bordered w-full" PlaceHolder="Email Address" runat="server" TextMode="Email"></asp:TextBox>
-                                        <asp:TextBox ID="txt_Password" class="input  input-bordered w-full" PlaceHolder="Password" runat="server" TextMode="Password"></asp:TextBox>
-                                        <label for="showPassword3" class="swap swap-rotate">
-                                            <input type="checkbox" id="showPassword3" onclick="togglePasswordVisibilitySign()">
-                                            <p class="swap-on fill-current w-10 h-10">👀</p>
-                                            <p class="swap-off fill-current w-10 h-10" />
-                                            😆</p>
-                                        </label>
-                                        <div class="card-actions justify-end">
-                                            <asp:Button ID="btnSignIn" class="btn mt-2 w-full" runat="server" Text="Secure Sign In" OnClick="btnSignIn_Click" />
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                            <input type="radio" name="my_tabs_2" class="tab" aria-label="Admin" />
-                            <div class="tab-content bg-base-100 border-base-300 rounded-box p-10">
-                                <div class="card w-96 bg-base-100 shadow-xl">
-                                    <div class="card-body">
-                                        <h2 class="card-title">Admin</h2>
-                                        <asp:TextBox ID="txt_AdminEmail" class="input  input-bordered w-full" PlaceHolder="Email Address" runat="server"></asp:TextBox>
-                                        <asp:TextBox ID="txt_AdminPassword" class="input  input-bordered w-full" PlaceHolder="Password" runat="server" TextMode="Password"></asp:TextBox>
-                                        <label for="showPassword2" class="swap swap-rotate">
-                                            <input type="checkbox" id="showPassword2" onclick="togglePasswordVisibilityAdmin()">
-                                            <p class="swap-on fill-current w-10 h-10">👀</p>
-                                            <p class="swap-off fill-current w-10 h-10" />
-                                            😆</p>
-                                        </label>
-                                        <div class="card-actions justify-end">
-                                            <asp:Button ID="btnAdminSignIn" class="btn mt-2 w-full" runat="server" Text="Secure Sign In" OnClick="btnAdminSignIn_Click" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <input type="radio" name="my_tabs_2" class="tab" aria-label="Register" />
-                            <div class="tab-content bg-base-100 border-base-300 rounded-box p-10">
-                                <div class="card w-96 bg-base-100 shadow-xl">
-                                    <div class="card-body">
-                                        <h2 class="card-title">Register</h2>
-                                        <asp:TextBox ID="txt_Name" class="input  input-bordered w-full" PlaceHolder="Name" runat="server"></asp:TextBox>
-                                        <asp:TextBox ID="txt_RegEmail" class="input  input-bordered w-full" PlaceHolder="Email Address" runat="server" TextMode="Email"></asp:TextBox>
-                                        <asp:TextBox ID="txt_RegPassword" class="input  input-bordered w-full" PlaceHolder="Password" runat="server" TextMode="Password"></asp:TextBox>
-                                        <label for="showPassword" class="swap swap-rotate">
-                                            <input type="checkbox" id="showPassword" onclick="togglePasswordVisibility()">
-                                            <p class="swap-on fill-current w-10 h-10">👀</p>
-                                            <p class="swap-off fill-current w-10 h-10" />
-                                            😆</p>
-                                        </label>
-                                        <asp:TextBox ID="txt_ConfirmPW" class="input  input-bordered w-full" PlaceHolder="Confirm Password" runat="server" TextMode="Password"></asp:TextBox>
-                                        <asp:CompareValidator
-                                            ID="CompareValidatorPW"
-                                            runat="server"
-                                            ErrorMessage="Passwords do not match."
-                                            ControlToValidate="txt_ConfirmPW"
-                                            ControlToCompare="txt_RegPassword"
-                                            Operator="Equal" Type="String"
-                                            ForeColor="Red">
-                                        </asp:CompareValidator>
-                                        <div class="card-actions justify-end">
-                                            <asp:Button ID="btnRegister" class="btn mt-2 w-full" runat="server" Text="Create Account" OnClick="btnRegister_Click" />
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal-action">
-                            <label for="my_modal_6" class="btn">Close!</label>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!--Drawer-->
-        
-        <div class="drawer">
-            <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-            <div class="drawer-content">
-                <!-- Page content here -->
-                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                </asp:ContentPlaceHolder>
-            </div>
-            <div class="drawer-side">
-                <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-                <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-                    <!-- Sidebar content here -->
-                    <li>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <asp:TextBox ID="txtSearch" PlaceHolder="Search" class="input w-full" runat="server"></asp:TextBox>
-                        <asp:Button ID="btnSearch" runat="server" class="btn" Text="🔍Search" OnClick="btnSearch_Click" />
-                        <br>
-                    </li>
-                    <li><a href="#">View Shop</a></li>
-                    <li><a href="#">About Us </a></li>
-
-
-                </ul>
-            </div>
-        </div>
-        <footer class="footer footer-center p-10 bg-base-200 text-base-content rounded">
-            <nav class="grid grid-flow-col gap-4">
-                <a href="#" class="link link-hover">About us</a>
-                <a href="#" class="link link-hover">Contact</a>
-                <a href="#" class="link link-hover">Jobs</a>
-                <a href="#" class="link link-hover">Press kit</a>
-            </nav>
-
-
-            <nav>
-                <div class="grid grid-flow-col gap-4">
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current">
-                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z">
-                            </path>
-                        </svg>TW</a>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current">
-                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z">
-                            </path>
-                        </svg>YT</a>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current">
-                            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z">
-                            </path>
-                        </svg>FB</a>
-                </div>
-            </nav>
-            <aside>
-                <p>Copyright © 2023 - All right reserved by SHAPER</p>
-            </aside>
-        </footer>
-    </form>
+ <div class="modal-action justify-start">
+ <label for="my_modal_6" class="btn">Close!</label>
+<%-- <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>--%>
+ <button class="g-recaptcha invisible"data-sitekey="6Le99RwpAAAAACFLP5XKMKHhHTIbNlvN7u8Hciu6" data-callback='onSubmit'data-action='submit'>Submit</button>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <!--Drawer-->
+ <div class="drawer">
+ <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+ <div class="drawer-content">
+ <!-- Page content here -->
+ <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+ </asp:ContentPlaceHolder>
+ </div>
+ <div class="drawer-side">
+ <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+ <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+ <!-- Sidebar content here -->
+ <br>
+ <br>
+ <br>
+ <br>
+ <asp:TextBox ID="txtSearch" PlaceHolder="Search" class="input w-full" runat="server"></asp:TextBox>
+ <asp:Button ID="btnSearch" runat="server" class="btn" Text="🔍Search" OnClick="btnSearch_Click" />
+ <br>
+ <li><a href="#">View Shop</a></li>
+ <li><a href="#">About Us </a></li>
+ <button id="backToTopBtn" class="btn" type="button" onclick="scrollToTop()">Back to Top</button>
+ </ul>
+ </div>
+ </div>
+ <footer class="footer footer-center p-10 bg-base-200 text-base-content rounded">
+ <nav class="grid grid-flow-col gap-4">
+ <a href="#" class="link link-hover">About us</a>
+ <a href="#" class="link link-hover">Contact</a>
+ <a href="#" class="link link-hover">Jobs</a>
+ <a href="#" class="link link-hover">Press kit</a>
+ </nav>
+ <nav>
+ <div class="grid grid-flow-col gap-4">
+ <a href="#">
+ <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current">
+ <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z">
+ </path>
+ </svg>TW</a>
+ <a href="#">
+ <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current">
+ <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z">
+ </path>
+ </svg>YT</a>
+ <a href="#">
+ <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current">
+ <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z">
+ </path>
+ </svg>FB</a>
+ </div>
+ </nav>
+ <aside>
+ <p>Copyright © 2023 - All right reserved by SHAPER</p>
+ </aside>
+ </footer>
+ </form>
 </body>
 </html>
