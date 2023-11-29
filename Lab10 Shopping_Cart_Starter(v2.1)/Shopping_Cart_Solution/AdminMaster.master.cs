@@ -10,6 +10,8 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using Ionic.Zip;
+using System.Runtime.Remoting.Contexts;
+using System.Web.UI.HtmlControls;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
@@ -21,10 +23,9 @@ public partial class MasterPage : System.Web.UI.MasterPage
  {
  this.BindRepeater();
  }
- Alerts.Text = "<div id=\"alert\"class=\"alert alert-success\">\r\n<span>Welcome Admin</span><span onclick=\"closeAlert()\">&times;</span>\r\n</div>";
-
+        ALERT("Welcome Admin", "success");
  }
- protected string[] GetTextFileLines1()
+    protected string[] GetTextFileLines1()
  {
  string filePath = Server.MapPath("~/App_Data/Users/emails.txt");
  return File.Exists(filePath) ? File.ReadAllLines(filePath) : new string[0];
@@ -73,10 +74,11 @@ public partial class MasterPage : System.Web.UI.MasterPage
  {
  string saveimg = Server.MapPath(" ") + "\\" + image;
  FileUpload1.SaveAs(saveimg);
- Response.Write("<script>alert('Insert Successful');</script>");
+            ALERT("Insert Successful", "");
+            Response.Write("<script>alert('Insert Successful');</script>");
  }
 
- else { Response.Write("<script>alert('Failed to Insert');</script>"); }
+ else { ALERT("Failed to Insert", "error");}
 
  txtThrillerAuthor.Text = "";
  txtThrillerDesc.Text = "";
@@ -243,7 +245,10 @@ Repeater1.DataBind();
  }
  else
  {
- Alerts.Text = "<div id=\"alert\"class=\"alert alert-error\">\r\n<span>Please try again</span><span onclick=\"closeAlert()\">&times;</span>\r\n</div>";
+            ALERT("Please try again", "error"); }
  }
- }
+    private void ALERT(string alert, string color)
+    {
+        Alerts.Text = $"<div id=\"alert\"class=\"alert alert-{color}\">\r\n<span>{alert}</span><span onclick=\"closeAlert()\">&times;</span>\r\n</div>";
+    }
 }
